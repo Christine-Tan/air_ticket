@@ -25,6 +25,9 @@ public class PriceEntity {
     private int priceId;
 
 
+    @ManyToOne(cascade={CascadeType.MERGE})
+    @JoinColumn(name = "flight_id")
+    private FlightEntity flight;
 
     @Override
     public boolean equals(Object o) {

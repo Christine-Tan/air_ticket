@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Created by darxan on 2017/2/13.
  */
-public class BaseDao<T extends BaseTable> {
+public class BaseDao<T> {
 
     @Autowired
     protected SessionFactory sessionFactory;

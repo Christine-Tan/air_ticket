@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Set;
 
 /**
  * Created by darxan on 2017/6/7.
@@ -13,6 +14,10 @@ import java.sql.Time;
 @Entity
 @Table(name = "flight", schema = "ticket", catalog = "")
 public class FlightEntity {
+    @OneToMany(mappedBy = "flight", fetch = FetchType.LAZY,
+            cascade={CascadeType.MERGE,CascadeType.REMOVE})
+    private Set<PriceEntity> priceEntitySet;
+
     @Id
     @Column(name = "flight_id")
     private int flightId;
