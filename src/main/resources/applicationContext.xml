@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        ">
+
+
+    <context:component-scan base-package="com.edu.nju.se.integration.controller"/>
+    <context:component-scan base-package="com.edu.nju.se.integration.service"/>
+    <context:component-scan base-package="com.edu.nju.se.integration.logic"/>
+    <context:component-scan base-package="com.edu.nju.se.integration.dao"/>
+
+    <!--Spring 容器初始化的时候，会扫描 personal.darxan.updatedHostelVO.dao下 标有
+    (@Component,@Service,@Controller,@Repository) 注解的 类 纳入spring容器管理-->
+
+
+    <!-- Hibernate4 -->
+    <!-- 加载资源文件  其中包含变量信息，必须在Spring配置文件的最前面加载，即第一个加载-->
+    <!--<context:property-placeholder location="classpath:mysql.properties" />-->
+
+
+    <!-- 配置SessionFactory -->
+    <!--Hibernate的配置也可以单独放在hibernate.cfg.xml文件中,然后通过如下的配置指向config文件,这样在spring配置中就不要配置dataSource和其他Hibernate相关的信息了。-->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+    </bean>
+
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!-- 配置事务的传播特性 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--&lt;!&ndash; 那些类的哪些方法参与事务 &ndash;&gt;-->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="allServiceMethod" expression="execution(* com.edu.nju.se.integration.service..*.*(..))"/>
+        <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
+    </aop:config>
+
+
+
+</beans>
