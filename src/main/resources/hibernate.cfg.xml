@@ -37,6 +37,10 @@
         <property name="hbm2ddl.auto"> validate </property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://115.29.138.254:3306/ticket</property>
+
+        <property name="hibernate.connection.username">ticket</property>
+        <property name="hibernate.connection.password">ticket</property>
+
         <!--<property name="hibernate.jdbc.batch_size">20</property>-->
 
         <mapping class="com.edu.nju.se.integration.model.FlightEntity"/>
