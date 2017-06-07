@@ -38,11 +38,9 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://115.29.138.254:3306/ticket</property>
         <!--<property name="hibernate.jdbc.batch_size">20</property>-->
-        <property name="hibernate.connection.username">ticket</property>
-        <property name="hibernate.connection.password">ticket</property>
 
-        <mapping class="com.edu.nju.se.integration.model.Flight"/>
-        <mapping class="com.edu.nju.se.integration.model.Price"/>
+        <mapping class="com.edu.nju.se.integration.model.FlightEntity"/>
+        <mapping class="com.edu.nju.se.integration.model.PriceEntity"/>
 
     </session-factory>
 
