@@ -10,13 +10,14 @@ import java.util.Date;
 @Data
 public class SearchRestrictVO {
 
-    //价格排序
+    //排序中只能有一个生效
+    //价格排序: true 表示从高到底
     private boolean priceOrder;
-    //出发时间排序
+    //出发时间排序 true 表示从晚到早
     private boolean departingTimeOrder;
-    //到达时间排序
+    //到达时间排序 true 表示从晚到早
     private boolean arrivingTimeOrder;
-    //准点率排序
+    //准点率排序 true 表示从低到高
     private boolean punctualRateOrder;
     //
     //出发日期
