@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Set;
 public class FlightEntity {
     @OneToMany(mappedBy = "flight", fetch = FetchType.LAZY,
             cascade={CascadeType.MERGE,CascadeType.REMOVE})
-    private Set<PriceEntity> priceEntitySet;
+    private List<PriceEntity> priceEntitySet;
 
     @Id
     @Column(name = "flight_id")

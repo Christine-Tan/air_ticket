@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 /**
  * Created by darxan on 2017/6/7.
@@ -12,7 +13,8 @@ import java.sql.Time;
 public class TicketVO {
 
 
-//    private Set<PriceVO> priceVOS;
+    //暂未提供数据
+    private List<PriceVO> priceVOS;
 
     private int flightId;
 

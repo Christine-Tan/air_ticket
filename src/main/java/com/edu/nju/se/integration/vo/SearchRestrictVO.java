@@ -10,41 +10,48 @@ import java.util.Date;
 @Data
 public class SearchRestrictVO {
 
-
-
-    private Integer page = 1;
-
-    private boolean asc = true;
-
-    private Integer pageSize = 10;
-
-    private String order = "reserveTime";
-
-    private Date departingDateLower ;
-    private Date departingDateUpper;
-    private Date arrivingDateLower ;
-    private Date arrivingDateUpper;
-
-
-
+    //价格排序
+    private boolean priceOrder;
+    //出发时间排序
+    private boolean departingTimeOrder;
+    //到达时间排序
+    private boolean arrivingTimeOrder;
+    //准点率排序
+    private boolean punctualRateOrder;
+    //
+    //出发日期
+    private Date departingDate ;
+    //航空公司
+    private String playType;
+    //航班号
     private String flightNum;
-
+    //出发城市
     private String departure;
-
+    //目的城市
     private String destination;
 
+//    页码
+//    private Integer page = 1;
+//    每页大小
+//    private Integer pageSize = 10;
 
-    private String departingAirport;
-    private String arrivingAirport;
+//    private Date departingDateLower ;
+//    private Date departingDateUpper ;
 
-    private String punctualRateLower;
-    private String punctualRateUpper;
+//    private Date arrivingDateLower ;
+//    private Date arrivingDateUpper ;
 
-    private String planeType;
+//    private String departingAirport;
+//    private String arrivingAirport;
+//
+//    private String punctualRateLower;
+//    private String punctualRateUpper;
 
-    private String dataSource;
+//    private String planeType;
 
-    private int priceUpper;
-    private int priceLower;
+//    private String dataSource;
+//
+//    private int priceUpper;
+//    private int priceLower;
 
 }
