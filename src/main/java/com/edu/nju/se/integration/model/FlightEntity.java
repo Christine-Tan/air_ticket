@@ -21,7 +21,7 @@ public class FlightEntity {
 
     @Id
     @Column(name = "flight_id")
-    private int flightId;
+    private String flightId;
     @Basic
     @Column(name = "flight_num")
     private String flightNum;
@@ -91,7 +91,8 @@ public class FlightEntity {
 
     @Override
     public int hashCode() {
-        int result = flightId;
+        int result = flightId != null ? flightId.hashCode() : 0;
+
         result = 31 * result + (flightNum != null ? flightNum.hashCode() : 0);
         result = 31 * result + (departure != null ? departure.hashCode() : 0);
         result = 31 * result + (destination != null ? destination.hashCode() : 0);

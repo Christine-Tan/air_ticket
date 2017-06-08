@@ -1,5 +1,6 @@
 package com.edu.nju.se.integration.vo;
 
+import com.edu.nju.se.integration.model.PriceEntity;
 import lombok.Data;
 
 /**
@@ -7,6 +8,13 @@ import lombok.Data;
  */
 @Data
 public class PriceVO {
+
+    public PriceVO(){}
+    public PriceVO(PriceEntity priceEntity){
+        note = priceEntity.getNote();
+        price = priceEntity.getPrice();
+        priceId = priceEntity.getPriceId();
+    }
 
     private String note;
 

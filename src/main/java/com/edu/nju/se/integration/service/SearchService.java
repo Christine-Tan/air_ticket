@@ -4,12 +4,14 @@ import com.edu.nju.se.integration.vo.PaginationResult;
 import com.edu.nju.se.integration.vo.PriceVO;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import com.edu.nju.se.integration.vo.TicketVO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by darxan on 2017/6/7.
  */
+@Service
 public interface SearchService {
 
     /**

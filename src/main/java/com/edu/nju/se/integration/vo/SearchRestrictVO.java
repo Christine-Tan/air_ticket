@@ -23,7 +23,7 @@ public class SearchRestrictVO {
     //出发日期
     private Date departingDate ;
     //航空公司
-    private String playType;
+    private String planeType;
     //航班号
     private String flightNum;
     //出发城市

@@ -1,9 +1,11 @@
 package com.edu.nju.se.integration.vo;
 
+import com.edu.nju.se.integration.model.FlightEntity;
 import lombok.Data;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,10 +15,30 @@ import java.util.List;
 public class TicketVO {
 
 
+    public TicketVO(){}
+
+    public TicketVO(FlightEntity flightEntity){
+        flightId = flightEntity.getFlightId();
+        flightNum = flightEntity.getFlightNum();
+        departure = flightEntity.getDeparture();
+        destination = flightEntity.getDestination();
+        departingDate = flightEntity.getDepartingDate();
+        departingTime = flightEntity.getDepartingTime();
+        arrivingTime = flightEntity.getArrivingTime();
+
+        departingAirport = flightEntity.getDepartingAirport();
+        arrivingAirport = flightEntity.getArrivingAirport();
+        punctualRate = flightEntity.getPunctualRate();
+        planeType = flightEntity.getPlaneType();
+        lowestPrice = flightEntity.getLowestPrice();
+        dataSource = new ArrayList<String>();
+        dataSource.add(flightEntity.getDataSource());
+    }
+
     //暂未提供数据
     private List<PriceVO> priceVOS;
 
-    private int flightId;
+    private String flightId;
 
     private String flightNum;
 
@@ -40,7 +62,7 @@ public class TicketVO {
 
     private int lowestPrice;
 
-    private String dataSource;
+    private List<String> dataSource;
 
 
 }
