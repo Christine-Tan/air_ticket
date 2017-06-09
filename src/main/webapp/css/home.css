@@ -9,9 +9,81 @@
 .my-font{
     color: #64717F;
     font-weight:600;
-    font-size:14px;
+    font-size:16px;
 }
 
 .large-font{
     font-size:20px;
 }
+
+.common-font{
+    color: #64717F;
+}
+
+.my-input{
+    width:250px;
+}
+
+.filter-part{
+    margin-top:20px;
+}
+
+.input-group{
+    margin-bottom: 15px;
+}
+
+.city{
+    display: inline;
+}
+
+.my-date{
+    display: inline;
+    position: relative;
+    bottom:5px;
+    left:4px;
+}
+
+.my-date-input{
+    width:222px;
+    height:30px;
+}
+
+.my-right{
+    margin-left:100px;
+}
+
+
+.float-left{
+    float:left;
+}
+
+.float-right{
+    float:right;
+}
+
+.select-all{
+    border:none;
+    background: rgb(200,200,200);
+    color:rgb(240,240,240);
+}
+
+.select-all:hover,.select-all:focus{
+    background: rgb(150,150,150);
+    border:none;
+    color:rgb(240,240,240);
+    outline: none;
+}
+
+.checkbox-inline{
+    margin-left:15px;
+    position: relative;
+    top:3px;
+    color: #64717F;
+}
+
+.query-btn{
+    position:relative;
+    top:-3px;
+    left:-60px;
+}
+
