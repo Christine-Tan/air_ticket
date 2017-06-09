@@ -1,0 +1,17 @@
+.my-nav{
+    background:transparent;
+    border:none;
+    margin-right:auto;
+    margin-left:auto;
+    margin-top:15px;
+}
+
+.my-font{
+    color: #64717F;
+    font-weight:600;
+    font-size:14px;
+}
+
+.large-font{
+    font-size:20px;
+}
