@@ -1,12 +1,9 @@
 package com.edu.nju.se.integration.dao;
 
 import com.edu.nju.se.integration.dao.base.BaseDao;
-import com.edu.nju.se.integration.dao.base.SQLAppend;
 import com.edu.nju.se.integration.model.FlightEntity;
-import com.edu.nju.se.integration.model.PriceEntity;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -47,9 +44,11 @@ public class FlightDao extends BaseDao<FlightEntity> {
 
     }
 
-    public List<FlightEntity> getPrices(String planeNumber) {
+    public List<FlightEntity> search(String planeNumber, Date departureDate) {
         return getSession()
-                .createQuery("from FlightEntity where flightNum=?")
-                .setParameter(0, planeNumber).list();
+                .createQuery("from FlightEntity where flightNum=? and departingDate=?")
+                .setParameter(0, planeNumber)
+                .setDate(1, departureDate)
+                .list();
     }
 }

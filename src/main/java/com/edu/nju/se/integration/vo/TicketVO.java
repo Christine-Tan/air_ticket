@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by darxan on 2017/6/7.
+ * 代表的是一个航班号。
  */
 @Data
 public class TicketVO {

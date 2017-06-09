@@ -6,14 +6,15 @@ import com.edu.nju.se.integration.model.PriceEntity;
 import com.edu.nju.se.integration.vo.PriceVO;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import com.edu.nju.se.integration.vo.TicketVO;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Created by darxan on 2017/6/8.
@@ -24,34 +25,24 @@ public class SearchImpl implements SearchService {
     @Autowired
     private FlightDao flightDao;
 
+
     public List<TicketVO> search(SearchRestrictVO restrict) {
-        List<FlightEntity> flights = flightDao.search(restrict);
-        List<TicketVO> ticketVOS = new ArrayList<TicketVO>(flights.size());
-        Map<String, TicketVO> ticketVOMap = new HashMap<String, TicketVO>(flights.size());
-        for (FlightEntity flight: flights) {
-            String key = flight.getFlightNum()+flight.getDepartingDate().getTime()+flight.getDepartingTime().getTime();
-            TicketVO ticketVO = ticketVOMap.get(key);
-            if (ticketVO==null) {
-                ticketVO = new TicketVO(flight);
-                ticketVOMap.put(key, ticketVO);
-                ticketVOS.add(ticketVO);
-            } else {
-                ticketVO.getDataSource().add(flight.getDataSource());
-            }
-        }
-        return ticketVOS;
+        return convertToTicket(flightDao.search(restrict));
     }
 
-    public List<PriceVO> getPrices(String flightNumber) {
-        List<FlightEntity> flights = flightDao.getPrices(flightNumber);
-        for (FlightEntity flight:flights) {
+    public List<TicketVO> search(String flight, Date departure) {
+        return convertToTicket(flightDao.search(flight, departure));
+    }
 
-            System.out.println(flight.getDepartingAirport());
-            System.out.println(flight.getArrivingAirport());
-            System.out.println(flight.getFlightNum());
+    public List<PriceVO> getPrices(String flightNumber, Date date) {
+        return convertToPrice(flightDao.search(flightNumber, date));
+    }
 
-        }
-        System.out.println("=================");
+    public List<PriceVO> gerPrices(SearchRestrictVO restrictVO) {
+        return convertToPrice(flightDao.search(restrictVO));
+    }
+
+    private List<PriceVO> convertToPrice(List<FlightEntity> flights) {
         List<PriceVO> priceVOS = new ArrayList<PriceVO>(flights.size()*3);
 
         TicketVO ticketVO = null;
@@ -73,6 +64,23 @@ public class SearchImpl implements SearchService {
         }
 
         return priceVOS;
+    }
+
+    private List<TicketVO> convertToTicket(List<FlightEntity> flights) {
+        List<TicketVO> ticketVOS = new ArrayList<TicketVO>(flights.size());
+        Map<String, TicketVO> ticketVOMap = new HashMap<String, TicketVO>(flights.size());
+        for (FlightEntity flight: flights) {
+            String key = flight.getFlightNum()+flight.getDepartingDate().getTime()+flight.getDepartingTime().getTime();
+            TicketVO ticketVO = ticketVOMap.get(key);
+            if (ticketVO==null) {
+                ticketVO = new TicketVO(flight);
+                ticketVOMap.put(key, ticketVO);
+                ticketVOS.add(ticketVO);
+            } else {
+                ticketVO.getDataSource().add(flight.getDataSource());
+            }
+        }
+        return ticketVOS;
     }
 
 
