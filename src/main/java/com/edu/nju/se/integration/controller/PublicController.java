@@ -75,6 +75,23 @@ public class PublicController {
         return "planeDetail";
     }
 
+    @RequestMapping("/test")
+    @ResponseBody
+    public List<PlaneVO> test(){
+        List<PlaneVO> list = new ArrayList<PlaneVO>();
+
+        PlaneVO vo = new PlaneVO();
+        vo.setArrivingAirport("hhhhh");
+
+        PlaneVO p = new PlaneVO();
+        p.setCompany("北京");
+
+        list.add(vo);
+        list.add(p);
+
+        return list;
+    }
+
 
 
 }
