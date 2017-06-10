@@ -61,6 +61,14 @@ public class PublicController {
         return searchService.search(srvo);
     }
 
+    @RequestMapping("/search")
+    @ResponseBody
+    public List<PlaneVO> getSearch(@RequestParam("flightNum") String flightNum,
+                                   @RequestParam("departDate") String departDate){
+        Date depart = DateTrans.String2Date(departDate,"yyyy-MM-dd");
+        return searchService.search(flightNum,depart);
+    }
+
     @RequestMapping("/detail")
     public String getPlaneDetail(@RequestParam String flightNum,
                                   @RequestParam String departTime,

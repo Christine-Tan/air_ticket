@@ -186,7 +186,7 @@ html{
 }
 
 .price-info{
-    margin-top:-5%;
+    margin-top:-1%;
 }
 
 .price-list{
@@ -214,6 +214,6 @@ html{
 
 .btn-detail{
     position:relative;
-    bottom:60px;
+    bottom:40px;
 }
 

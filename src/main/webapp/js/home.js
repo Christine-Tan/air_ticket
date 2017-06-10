@@ -16,7 +16,7 @@ var PlaneList = {
             tempGrid.find(".flight-num").eq(0).text(plane.flightNum);
             // var depart_time_full = plane.departTime.toString();
             // var depart_time = depart_time_full.slice(0,-3);
-            tempGrid.find(".depart-time").eq(0).text(plane.departTime);
+            tempGrid.find(".depart-time").eq(0).text(plane.departingTime);
             // var arrive_time_full = plane.arrivingTime.toString();
             // var arrive_time = arrive_time_full.slice(0,-3);
             tempGrid.find(".arriving-time").eq(0).text(plane.arrivingTime);
@@ -26,7 +26,7 @@ var PlaneList = {
             tempGrid.find(".lowest-price").eq(0).text(plane.lowestPrice);
 
             var gridsFather = tempGrid.find(".price-list").eq(0);
-            PlatformList.init(gridsFather);
+            PlatformList.init(gridsFather,plane.flightNum,plane.departDate+" "+plane.departTime);
             PlatformList.updateData(plane.dataSource);
 
             tempGrid.find(".btn-detail").eq(0).attr("href",plane.departDate+" "+plane.departTime);
@@ -37,9 +37,10 @@ var PlaneList = {
 }
 
 var PlatformList = {
-    init:function( gridsFather){
+    init:function(gridsFather,flightNum,time){
         this.gridsFather = gridsFather;
         this.lastGrid =gridsFather.find(".price-item").eq(0);
+        this.detail = gridsFather.find(".btn-detail").eq(0).attr("href","/home/detail?flightNum="+flightNum+"&departTime="+time);
     },
     updateData:function(platformList){
         this.gridsFather.empty();
@@ -51,7 +52,9 @@ var PlatformList = {
             tempGrid.find(".link").eq(0).attr("href",platform.link);
 
             _this.gridsFather.append(tempGrid);
-        })
+        });
+
+        _this.gridsFather.append(_this.detail);
 
     }
 }
@@ -72,13 +75,15 @@ $(document).ready(
         })
 
         $("input[id='all']").change(function(){
+
             if(this.checked){
-                $.each($("input[name='f-company']"),function(i,check){
-                    check.attr("disabled","disabled");
+                $("input[name='f-company']").each(function(){
+                    $(this).attr("disabled","disabled");
                 })
+
             }else{
-                $.each($("input[name='f-company']"),function(i,check){
-                    check.removeAttr("disabled");
+                $("input[name='f-company']").each(function(){
+                    $(this).removeAttr("disabled");
                 })
             }
         })
@@ -117,6 +122,22 @@ $(document).ready(
                 }
             })
 
+        });
+
+        var search = $("#btn-search");
+        search.click(function(){
+            var date = $("#departDate").val();
+            var flightNum = $("#flightNum").val();
+            $.get({
+                url:"/home/search",
+                data:{
+                    flightNum:flightNum,
+                    departDate:date,
+                },
+                success:function(newList){
+                    PlaneList.updateData(newList);
+                }
+            })
         })
     }
 )

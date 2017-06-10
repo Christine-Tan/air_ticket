@@ -103,8 +103,8 @@
                         </div>
                     </form>
                     <div class="input-group search-part">
-                        <input type="text" class="form-control" placeholder="直接输入航班号查询">
-                        <span class="btn btn-info btn-icon"><span class="icon-search"></span></span>
+                        <input type="text" class="form-control" id="flightNum" placeholder="直接输入航班号查询">
+                        <span class="btn btn-info btn-icon" id="btn-search"><span class="icon-search"></span></span>
                     </div>
 
                     <hr class="col-lg-12">
@@ -128,13 +128,13 @@
                             </div>
                             <div class="time-city col-lg-5 col-lg-offset-1">
                                 <div class="time my-font large-font">
-                                    <span class="depart-time">7:00</span>
+                                    <span class="depart-time" style="width:150px;">7:00</span>
                                     <img style="position:relative;top:10px;" src="../../img/flight_arrow.png">
-                                    <span class="arriving-time">15:00</span>
+                                    <span class="arriving-time" style="width:150px;">15:00</span>
                                 </div>
                                 <div class="list-city my-font">
-                                    <span class="depart-city">上海</span>
-                                    <span style="margin-left:180px;" class="arriving-city">南京</span>
+                                    <span class="depart-city" style="width:150px;">上海国际机场</span>
+                                    <span style="margin-left:100px;width:150px;" class="arriving-city">南京国际机场</span>
 
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                     <span class="col-lg-3 note">note信息</span>
                                 </li>
 
-                                <a class="col-lg-2 btn btn-info btn-detail float-right">查看详情</a>
+                                <a class="col-lg-2 btn btn-info btn-detail float-right" href="/view/home.html">查看详情</a>
 
                             </ul>
 
