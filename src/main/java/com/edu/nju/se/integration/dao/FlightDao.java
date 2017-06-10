@@ -6,7 +6,7 @@ import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +15,14 @@ import java.util.List;
 @Repository
 public class FlightDao extends BaseDao<FlightEntity> {
 
-    public List<FlightEntity> search(SearchRestrictVO searchRestrictVO) {
+    /**
+     * 必须有departingDate，departure，destination三个字段
+     * planeType可选
+     * flightNum可选
+     * @param searchRestrictVO
+     * @return
+     */
+    public List<FlightEntity> searchFlights(SearchRestrictVO searchRestrictVO) {
 
         String  queryString = ("from FlightEntity flight " +
                 "where flight.departingDate = ? " +
@@ -44,7 +51,7 @@ public class FlightDao extends BaseDao<FlightEntity> {
 
     }
 
-    public List<FlightEntity> search(String planeNumber, Date departureDate) {
+    public List<FlightEntity> uniqueFlight(String planeNumber, Date departureDate) {
         return getSession()
                 .createQuery("from FlightEntity where flightNum=? and departingDate=?")
                 .setParameter(0, planeNumber)

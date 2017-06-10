@@ -1,12 +1,9 @@
 package com.edu.nju.se.integration.service;
 
-import com.edu.nju.se.integration.vo.PaginationResult;
-import com.edu.nju.se.integration.vo.PriceVO;
-import com.edu.nju.se.integration.vo.SearchRestrictVO;
-import com.edu.nju.se.integration.vo.TicketVO;
+import com.edu.nju.se.integration.vo.*;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +14,7 @@ public interface SearchService {
 
     /**
      * query from data base
-     * 一个ticketVO对应的的是某个时间的航班，会有多个平台来源dataSource。
+     * 一个PlaneVO对应的的是某个时间的航班，会有多个平台来源dataSource。
      * ticketVO没有票价信息，每个来源会有多个票价。
      * @param restrict include time,  price  , destination and so on
      * @see SearchRestrictVO
@@ -25,7 +22,7 @@ public interface SearchService {
      * @return  List<PriceVO>
      * @see  PaginationResult
      */
-    List<TicketVO> search(SearchRestrictVO restrict);
+    List<PlaneVO> search(SearchRestrictVO restrict);
 
 
     /**
@@ -34,7 +31,7 @@ public interface SearchService {
      * @param departure
      * @return
      */
-    List<TicketVO> search(String flight, Date departure);
+    List<PlaneVO> search(String flight, Date departure);
 
 
     /**
@@ -44,7 +41,7 @@ public interface SearchService {
      * @param flightNumber
      * @return
      */
-    List<PriceVO> getPrices(String flightNumber, Date date);
+    PlaneVO getPrices(String flightNumber, Date date);
 
     /**
      *
@@ -52,5 +49,5 @@ public interface SearchService {
      * @return
      *
      */
-    List<PriceVO> gerPrices(SearchRestrictVO restrictVO);
+    PlaneVO gerPrices(SearchRestrictVO restrictVO);
 }

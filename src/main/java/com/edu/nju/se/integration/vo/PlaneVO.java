@@ -1,6 +1,8 @@
 package com.edu.nju.se.integration.vo;
 
+import com.edu.nju.se.integration.logic.PlatformConvert;
 import com.edu.nju.se.integration.model.FlightEntity;
+import com.edu.nju.se.integration.tool.MyFunction;
 import lombok.Data;
 
 import java.sql.Date;
@@ -10,15 +12,15 @@ import java.util.List;
 
 /**
  * Created by darxan on 2017/6/7.
- * 代表的是一个航班号。
  */
 @Data
-public class TicketVO {
+public class PlaneVO {
 
 
-    public TicketVO(){}
+    public PlaneVO(){}
 
-    public TicketVO(FlightEntity flightEntity){
+    public PlaneVO(FlightEntity flightEntity){
+
         flightId = flightEntity.getFlightId();
         flightNum = flightEntity.getFlightNum();
         departure = flightEntity.getDeparture();
@@ -32,12 +34,19 @@ public class TicketVO {
         punctualRate = flightEntity.getPunctualRate();
         planeType = flightEntity.getPlaneType();
         lowestPrice = flightEntity.getLowestPrice();
-        dataSource = new ArrayList<String>();
-        dataSource.add(flightEntity.getDataSource());
+        dataSource = new ArrayList<PlatformVO>();
+
     }
 
-    //暂未提供数据
-    private List<PriceVO> priceVOS;
+    public PlatformVO addPlane(FlightEntity flight, PlatformConvert platformConvert) {
+        PlatformVO platform = new PlatformVO(flight, this, platformConvert);
+        dataSource.add(platform);
+        if (flight.getLowestPrice()<lowestPrice) {
+            lowestPrice = flight.getLowestPrice();
+        }
+        return platform;
+    }
+
 
     private String flightId;
 
@@ -63,7 +72,6 @@ public class TicketVO {
 
     private int lowestPrice;
 
-    private List<String> dataSource;
-
+    private List<PlatformVO> dataSource;
 
 }

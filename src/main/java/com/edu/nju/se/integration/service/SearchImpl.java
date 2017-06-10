@@ -1,19 +1,18 @@
 package com.edu.nju.se.integration.service;
 
 import com.edu.nju.se.integration.dao.FlightDao;
+import com.edu.nju.se.integration.logic.CityConverter;
+import com.edu.nju.se.integration.logic.PlatformConvert;
 import com.edu.nju.se.integration.model.FlightEntity;
 import com.edu.nju.se.integration.model.PriceEntity;
+import com.edu.nju.se.integration.vo.PlaneVO;
+import com.edu.nju.se.integration.vo.PlatformVO;
 import com.edu.nju.se.integration.vo.PriceVO;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
-import com.edu.nju.se.integration.vo.TicketVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -25,62 +24,88 @@ public class SearchImpl implements SearchService {
     @Autowired
     private FlightDao flightDao;
 
+    @Autowired
+    private CityConverter cityConverter;
 
-    public List<TicketVO> search(SearchRestrictVO restrict) {
-        return convertToTicket(flightDao.search(restrict));
+    @Autowired
+    private PlatformConvert  platformConvert;
+
+    public List<PlaneVO> search(SearchRestrictVO restrict) {
+        try {
+            validParameters(restrict);
+            return convertToPlane(flightDao.searchFlights(restrict));
+        }catch (Exception e) {
+            return Collections.emptyList();
+        }
+
     }
 
-    public List<TicketVO> search(String flight, Date departure) {
-        return convertToTicket(flightDao.search(flight, departure));
+    public List<PlaneVO> search(String flight, Date departure) {
+        return convertToPlane(flightDao.uniqueFlight(flight, departure));
     }
 
-    public List<PriceVO> getPrices(String flightNumber, Date date) {
-        return convertToPrice(flightDao.search(flightNumber, date));
+    public PlaneVO getPrices(String flightNumber, Date date) {
+        return convertToPrice(flightDao.uniqueFlight(flightNumber, date));
     }
 
-    public List<PriceVO> gerPrices(SearchRestrictVO restrictVO) {
-        return convertToPrice(flightDao.search(restrictVO));
+    public PlaneVO gerPrices(SearchRestrictVO restrictVO) {
+        try {
+            validParameters(restrictVO);
+            return convertToPrice(flightDao.searchFlights(restrictVO));
+        }catch (Exception e) {
+            return null;
+        }
     }
 
-    private List<PriceVO> convertToPrice(List<FlightEntity> flights) {
-        List<PriceVO> priceVOS = new ArrayList<PriceVO>(flights.size()*3);
+    private void validParameters(SearchRestrictVO restrict) throws Exception {
+        restrict.setDestination(cityConverter.convertCityToCode(restrict.getDestination()));
+        restrict.setDeparture(cityConverter.convertCityToCode(restrict.getDeparture()));
+    }
 
-        TicketVO ticketVO = null;
+    private PlaneVO convertToPrice(List<FlightEntity> flights) {
+
+        if (flights==null||flights.size()==0) {
+            return null;
+        }
+
+        PlaneVO planeVO = null;
         for (FlightEntity flight : flights) {
-            if (ticketVO==null){
-                ticketVO = new TicketVO(flight);
-                ticketVO.setPriceVOS(new ArrayList<PriceVO>(flight.getPriceEntitySet().size()));
-            }else {
-                ticketVO.getDataSource().add(flight.getDataSource());
+
+            if (planeVO ==null){
+                planeVO = new PlaneVO(flight);
             }
+            PlatformVO platformVO = planeVO.addPlane(flight, platformConvert);
 
             for(PriceEntity price : flight.getPriceEntitySet()) {
                 PriceVO priceVO = new PriceVO(price);
-                priceVO.setTicketVO(ticketVO);
-
-                ticketVO.getPriceVOS().add(priceVO);
-                priceVOS.add(priceVO);
+                priceVO.setPlatformVO(platformVO);
+                platformVO.getPriceVOS().add(priceVO);
             }
         }
 
-        return priceVOS;
+        return planeVO;
     }
 
-    private List<TicketVO> convertToTicket(List<FlightEntity> flights) {
-        List<TicketVO> ticketVOS = new ArrayList<TicketVO>(flights.size());
-        Map<String, TicketVO> ticketVOMap = new HashMap<String, TicketVO>(flights.size());
+    private List<PlaneVO> convertToPlane(List<FlightEntity> flights) {
+        List<PlaneVO> planeVOS = new ArrayList<PlaneVO>(flights.size());
+        Map<String, PlaneVO> ticketVOMap = new HashMap<String, PlaneVO>(flights.size());
+
         for (FlightEntity flight: flights) {
+
             String key = flight.getFlightNum()+flight.getDepartingDate().getTime()+flight.getDepartingTime().getTime();
-            TicketVO ticketVO = ticketVOMap.get(key);
-            if (ticketVO==null) {
-                ticketVO = new TicketVO(flight);
-                ticketVOMap.put(key, ticketVO);
-                ticketVOS.add(ticketVO);
-            } else {
-                ticketVO.getDataSource().add(flight.getDataSource());
+
+            PlaneVO planeVO = ticketVOMap.get(key);
+            if (planeVO ==null) {
+                planeVO = new PlaneVO(flight);
+
+                ticketVOMap.put(key, planeVO);
+                planeVOS.add(planeVO);
             }
+
+            planeVO.addPlane(flight, platformConvert);
+
         }
-        return ticketVOS;
+        return planeVOS;
     }
 
 

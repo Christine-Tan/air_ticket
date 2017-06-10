@@ -32,6 +32,9 @@ public class BaseDao<T> {
         return entityClass;
     }
 
+    public List<T> list() {
+        return this.getSession().createCriteria(entityClass).list();
+    }
     /**
      * <保存实体>
      * <完整保存实体>

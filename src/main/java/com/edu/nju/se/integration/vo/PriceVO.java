@@ -9,7 +9,8 @@ import lombok.Data;
 @Data
 public class PriceVO {
 
-    public PriceVO(){}
+    public PriceVO() {}
+
     public PriceVO(PriceEntity priceEntity){
         note = priceEntity.getNote();
         price = priceEntity.getPrice();
@@ -22,6 +23,5 @@ public class PriceVO {
 
     private int priceId;
 
-    private TicketVO ticketVO;
-
+    private PlatformVO platformVO;
 }
