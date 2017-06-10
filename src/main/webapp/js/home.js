@@ -14,8 +14,12 @@ var PlaneList = {
             var tempGrid = _this.lastGrid.clone(true);
             tempGrid.find(".company-name").eq(0).text(plane.company);
             tempGrid.find(".flight-num").eq(0).text(plane.flightNum);
-            tempGrid.find(".depart-time").eq(0).text(plane.departingTime);
-            tempGrid.find(".arriving-time").eq(0).text(plane.arriving-time);
+            // var depart_time_full = plane.departTime.toString();
+            // var depart_time = depart_time_full.slice(0,-3);
+            tempGrid.find(".depart-time").eq(0).text(plane.departTime);
+            // var arrive_time_full = plane.arrivingTime.toString();
+            // var arrive_time = arrive_time_full.slice(0,-3);
+            tempGrid.find(".arriving-time").eq(0).text(plane.arrivingTime);
             tempGrid.find(".depart-city").eq(0).text(plane.departingAirport);
             tempGrid.find(".arriving-city").eq(0).text(plane.arrivingAirport);
             tempGrid.find(".punctual-rate").eq(0).text(plane.punctualRate);
@@ -35,7 +39,7 @@ var PlaneList = {
 var PlatformList = {
     init:function( gridsFather){
         this.gridsFather = gridsFather;
-        this.lastGrid = $(".price-item").eq(0);
+        this.lastGrid =gridsFather.find(".price-item").eq(0);
     },
     updateData:function(platformList){
         this.gridsFather.empty();
@@ -91,7 +95,7 @@ $(document).ready(
                 company="all";
             }else{
                $("input[name='f-company']:checked").each(function(){
-                   company += (this.value+"-");
+                   company += (this.value+",");
                })
             }
 
