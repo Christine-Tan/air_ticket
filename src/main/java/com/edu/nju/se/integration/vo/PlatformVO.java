@@ -3,6 +3,7 @@ package com.edu.nju.se.integration.vo;
 import com.edu.nju.se.integration.logic.PlatformConvert;
 import com.edu.nju.se.integration.model.FlightEntity;
 import com.edu.nju.se.integration.tool.MyFunction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -32,10 +33,25 @@ public class PlatformVO {
     //最低价格
     private double lowestPrice;
     //航班
+    @JsonIgnore
     private transient PlaneVO planeVO;
+
+    @JsonIgnore
+    public PlaneVO getPlaneVO() {
+        System.out.println("get plane from platform");
+        return planeVO;
+    }
+
+    @JsonIgnore
+    public void setPlaneVO(PlaneVO planeVO) {
+        this.planeVO = planeVO;
+    }
+
     //链接
     private String link;
 
     //不需要的时候不会加载
     private List<PriceVO> priceVOS;
+
+
 }
