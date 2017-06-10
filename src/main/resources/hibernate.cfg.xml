@@ -36,7 +36,7 @@
         <!--控制台打印sql-->
         <property name="show_sql">true</property>
         <!--自动更新数据库表结构-->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">validate</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
         <property name="hibernate.connection.url">jdbc:mysql://115.29.138.254:3306/ticket</property>

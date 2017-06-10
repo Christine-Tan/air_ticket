@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created by darxan on 2017/6/7.
  */
-@Service
 public interface SearchService {
 
     /**
