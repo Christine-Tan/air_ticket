@@ -8,6 +8,7 @@ import lombok.Data;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -47,6 +48,7 @@ public class PlaneVO {
         return platform;
     }
 
+    private String company;
 
     private String flightId;
 
@@ -60,7 +62,11 @@ public class PlaneVO {
 
     private Time departingTime;
 
+    private String departingTimeString;
+
     private Time arrivingTime;
+
+    private String arrivingTimeString;
 
     private String departingAirport;
 

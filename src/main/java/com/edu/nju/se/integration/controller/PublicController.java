@@ -24,6 +24,4 @@ public class PublicController {
                 new CustomDateEditor(DateFormatter.dateFormat, false));
     }
 
-
-
 }

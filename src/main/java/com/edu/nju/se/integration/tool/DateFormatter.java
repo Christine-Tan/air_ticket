@@ -10,10 +10,17 @@ public class DateFormatter {
 
     public static SimpleDateFormat dateFormat ;
 
+    public static SimpleDateFormat timeFormat ;
+
     static {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
+
+        timeFormat = new SimpleDateFormat("hh:MM");
     }
 
+    public static void main(String[] args) {
+        System.out.println(dateFormat.format(new Date()));
+    }
 
 }
