@@ -7,6 +7,10 @@
 
     <display-name>ticket</display-name>
 
+    <welcome-file-list>
+        <welcome-file>/view/html/home.html</welcome-file>
+    </welcome-file-list>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:/applicationContext.xml</param-value>
@@ -39,6 +43,16 @@
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.tff</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

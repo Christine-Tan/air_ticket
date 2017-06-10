@@ -13,6 +13,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -29,22 +30,24 @@ public class PublicController {
     @Autowired
     SearchService searchService;
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class,
-                new CustomDateEditor(DateFormatter.dateFormat, false));
-    }
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.registerCustomEditor(Date.class,
+//                new CustomDateEditor(DateFormatter.dateFormat, false));
+//    }
 
     @RequestMapping("")
+    @ResponseBody
     public List<PlaneVO> getDefaultList(){
         return searchService.lowestPrice();
     }
 
     @RequestMapping("/list")
-    public List<PlaneVO> getPlaneList(@RequestParam String departCity,
-                                        @RequestParam String arrivingCity,
-                                        @RequestParam String departDate,
-                                        @RequestParam String company) {
+    @ResponseBody
+    public List<PlaneVO> getPlaneList(@RequestParam("departCity") String departCity,
+                                        @RequestParam("arrivingCity") String arrivingCity,
+                                        @RequestParam("departDate") String departDate,
+                                        @RequestParam("company") String company) {
 
         SearchRestrictVO srvo = new SearchRestrictVO();
 
@@ -55,7 +58,6 @@ public class PublicController {
         if (!company.equals("all")) {
             srvo.setPlaneType(company);
         }
-
         return searchService.search(srvo);
     }
 

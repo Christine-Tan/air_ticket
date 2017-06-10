@@ -85,17 +85,19 @@ $(document).ready(
             var departCity = $("#departCity").find("option:selected").text();
             var arrivingCity = $("#arrivingCity").find("option:selected").text();
             var departDate = $("#departDate").val();
-            var company = "all";
+            var company = "";
 
             if($("#all").is(":checked")){
-
+                company="all";
             }else{
-                company="";
-               $("input[name='f-company']").each(function(){
-                   company += (this.value+",");
+               $("input[name='f-company']:checked").each(function(){
+                   company += (this.value+"-");
                })
             }
 
+            console.log(departCity);
+            console.log(arrivingCity);
+            console.log(departDate);
             console.log("company is: "+company);
 
             $.get({
