@@ -23,22 +23,22 @@ public class PlatformConvert  {
         }catch (Exception e) {
             e.printStackTrace();
             flight.setLink("https://www.baidu.com/s?wd="+flight.getDataSource()+"%20"+flight.getPlaneVO().getFlightId());
-            flight.setPlatFormName(flight.getDataSource());
+            flight.setPlatformName(flight.getDataSource());
         }
     }
 
     public void ctrip(PlatformVO platform) {
-        platform.setPlatFormName("携程");
+        platform.setPlatformName("携程");
 
-        String trip = "city_"+platform.getPlaneVO().getDeparture().toLowerCase()
-                + "_" + platform.getPlaneVO().getDestination().toLowerCase();
+        String trip = platform.getPlaneVO().getDeparture().toLowerCase()
+                + "-" + platform.getPlaneVO().getDestination().toLowerCase();
         String date = platform.getPlaneVO().getDepartingDate().toString();
         platform.setLink("http://flights.ctrip.com/booking/"+trip+"-day-1.html?ddate1="+date);
 
     }
 
     public void tuniu(PlatformVO platform) {
-        platform.setPlatFormName("途牛");
+        platform.setPlatformName("途牛");
         String trip = "city_"+platform.getPlaneVO().getDeparture().toUpperCase()
                 + "_" + platform.getPlaneVO().getDestination().toUpperCase();
         String date = platform.getPlaneVO().getDepartingDate().toString();
@@ -46,7 +46,7 @@ public class PlatformConvert  {
     }
 
     public void yilong(PlatformVO platform) {
-        platform.setPlatFormName("艺龙");
+        platform.setPlatformName("艺龙");
         String trip = platform.getPlaneVO().getDeparture().toLowerCase()
                 + "-" + platform.getPlaneVO().getDestination().toLowerCase();
         String date = platform.getPlaneVO().getDepartingDate().toString();

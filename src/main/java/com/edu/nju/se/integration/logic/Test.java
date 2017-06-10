@@ -37,6 +37,9 @@ public class Test {
         }
 
 
+        testFind();
+
+        testSearch();
     }
 
     public static void testFind() {
@@ -44,8 +47,7 @@ public class Test {
         for (PlatformVO platformVO:service.getPrices("MU9106", date).getDataSource()) {
 
             System.out.println(platformVO.getDataSource());
-
-            System.out.println(platformVO.getPlatFormName());
+            System.out.println(platformVO.getPlatformName());
             System.out.println(platformVO.getLink());
         }
     }
@@ -64,9 +66,12 @@ public class Test {
 
         for (PlaneVO planeVO : service.search(restrictVO))
         {
+
             System.out.println(planeVO.getFlightNum());
+            System.out.println(planeVO.getDepartingTimeString());
             System.out.println(planeVO.getDataSource().size());
             System.out.println(planeVO.getFlightId());
+            System.out.println(planeVO.getCompany());
         }
     }
 }
