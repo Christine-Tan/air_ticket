@@ -206,6 +206,10 @@ html{
     font-size: 18px;
 }
 
+.link:hover,.link:visited{
+    text-decoration: none;
+}
+
 .btn-detail{
     position:relative;
     bottom:60px;

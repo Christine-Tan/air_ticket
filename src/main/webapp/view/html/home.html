@@ -14,7 +14,7 @@
 <body>
 <nav class="navbar navbar-default navbar-fixed-top my-nav"></nav>
 
-        <div class="container">
+    <div class="container">
             <div class="col-lg-12">
                 <div class="col-lg-12 ">
                     <div class="navbar-header">
@@ -32,7 +32,7 @@
                         <div class="form-group">
                             <div class="input-group city ">
                                 <span class="my-font">出发城市：</span>
-                                <select class="my-input my-font" name="departCity">
+                                <select class="my-input my-font" id="departCity">
                                     <option>北京</option>
                                     <option>上海</option>
                                     <option>广州</option>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="input-group city my-right">
                                 <span class="my-font">到达城市：</span>
-                                <select class="my-input my-font" name="arrivingCity">
+                                <select class="my-input my-font" id="arrivingCity">
                                     <option>南京</option>
                                     <option>上海</option>
                                     <option>北京</option>
@@ -64,7 +64,7 @@
                             <div class="input-group" style="margin-top:15px;">
                                 <span class="my-font">出发日期：</span>
                                 <div class="input-append date my-date-picker my-date">
-                                    <input class="my-date-input" type="text" name="endDate" style="height:30px;width:222px;" />
+                                    <input class="my-date-input" type="text" id="departDate" style="height:30px;width:222px;" />
                                     <span class="add-on" style="height:30px;">
                                         <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
                                     </span>
@@ -86,14 +86,17 @@
                                         <input type="checkbox" id="inlineCheckbox2" value="option1"> 南方航空
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox3" value="option1"> 上海航空
+                                        <input type="checkbox" id="inlineCheckbox3" value="option1"> 中国航空
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox4" value="option1"> 中国航空
+                                        <input type="checkbox" id="inlineCheckbox4" value="option1"> 国泰航空
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox5" value="option1"> 海南航空
                                     </label>
                                 </div>
 
-                                <button class="btn btn-info query-btn my-right" type="submit" style="display:inline">查询</button>
+                                <a class="btn btn-info query-btn my-right" style="display:inline" id="query">查询</a>
                             </div>
                         </div>
                     </form>
@@ -113,32 +116,32 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 list-part">
+            <div class="col-lg-12 list-part" id="list-part">
                 <div class="col-lg-12  trip-list">
                     <div class="list-item">
                         <div class="trip-info">
                             <div class="company my-font col-lg-2">
-                                <div>航空公司</div>
-                                <div>MU123456</div>
+                                <div class="company-name">航空公司啊</div>
+                                <div class="flight-num">MU123456</div>
                             </div>
                             <div class="time-city col-lg-5 col-lg-offset-1">
                                 <div class="time my-font large-font">
-                                    <span >7:00</span>
+                                    <span class="depart-time">7:00</span>
                                     <img style="position:relative;top:10px;" src="../../img/flight_arrow.png">
-                                    <span >15:00</span>
+                                    <span class="arriving-time">15:00</span>
                                 </div>
                                 <div class="list-city my-font">
-                                    <span >上海</span>
-                                    <span style="margin-left:180px;" >南京</span>
+                                    <span class="depart-city">上海</span>
+                                    <span style="margin-left:180px;" class="arriving-city">南京</span>
 
                                 </div>
                             </div>
                             <div class="rate col-lg-1 grey-font">
                                 <div>准点率</div>
-                                <div>91.3%</div>
+                                <div class="punctual-rate">91.3%</div>
                             </div>
                             <div class="price col-lg-2 col-lg-offset-1">
-                                <span class="price-font">￥<span>720</span></span>
+                                <span class="price-font ">￥<span class="lowest-price">720</span></span>
                                 <span>起</span>
                             </div>
                         </div>
@@ -152,7 +155,7 @@
                                     <span class="col-lg-3">
                                         <span class="platform-price">￥<span class="p-price">720</span></span>起
                                     </span>
-                                    <span class="col-lg-3 note">note信息</span>
+                                    <a class="col-lg-3 link" href="">去看看</a>
                                 </li>
                                 <li class="price-item col-lg-12 my-font">
                                     <span class="col-lg-3 platform">去哪儿</span>
@@ -312,7 +315,7 @@
 
                 </div>
             </div>
-        </div>
+    </div>
 
 
 
