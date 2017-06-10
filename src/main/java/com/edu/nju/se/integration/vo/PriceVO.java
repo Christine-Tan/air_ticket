@@ -1,6 +1,7 @@
 package com.edu.nju.se.integration.vo;
 
 import com.edu.nju.se.integration.model.PriceEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 /**
@@ -23,5 +24,17 @@ public class PriceVO {
 
     private int priceId;
 
+    @JsonIgnore
     private PlatformVO platformVO;
+    
+    @JsonIgnore
+    public PlatformVO getPlatformVO() {
+        System.out.println("get plane from platform");
+        return platformVO;
+    }
+
+    @JsonIgnore
+    public void setPlatformVO(PlatformVO platformVO) {
+        this.platformVO = platformVO;
+    }
 }
