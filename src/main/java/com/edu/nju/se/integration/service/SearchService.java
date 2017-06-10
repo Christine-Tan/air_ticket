@@ -13,6 +13,11 @@ import java.util.List;
 public interface SearchService {
 
     /**
+     * 推荐的价格最低的机票
+     * @return
+     */
+    List<PlaneVO> lowestPrice();
+    /**
      * query from data base
      * 一个PlaneVO对应的的是某个时间的航班，会有多个平台来源dataSource。
      * ticketVO没有票价信息，每个来源会有多个票价。
@@ -23,6 +28,7 @@ public interface SearchService {
      * @see  PaginationResult
      */
     List<PlaneVO> search(SearchRestrictVO restrict);
+
 
 
     /**
@@ -50,4 +56,6 @@ public interface SearchService {
      *
      */
     PlaneVO gerPrices(SearchRestrictVO restrictVO);
+
+
 }

@@ -30,6 +30,10 @@ public class SearchImpl implements SearchService {
     @Autowired
     private PlatformConvert  platformConvert;
 
+    public List<PlaneVO> lowestPrice() {
+        return convertToPlane(flightDao.lowestPrice(15));
+    }
+
     public List<PlaneVO> search(SearchRestrictVO restrict) {
         try {
             validParameters(restrict);

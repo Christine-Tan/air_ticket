@@ -2,10 +2,14 @@ package com.edu.nju.se.integration.dao;
 
 import com.edu.nju.se.integration.dao.base.BaseDao;
 import com.edu.nju.se.integration.model.FlightEntity;
+import com.edu.nju.se.integration.tool.StringConstant;
+import com.edu.nju.se.integration.tool.StringTool;
+import com.edu.nju.se.integration.tool.Toolkit;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +19,7 @@ import java.util.List;
 @Repository
 public class FlightDao extends BaseDao<FlightEntity> {
 
+    private static final String separator = ",";
     /**
      * 必须有departingDate，departure，destination三个字段
      * planeType可选
@@ -24,31 +29,50 @@ public class FlightDao extends BaseDao<FlightEntity> {
      */
     public List<FlightEntity> searchFlights(SearchRestrictVO searchRestrictVO) {
 
-        String  queryString = ("from FlightEntity flight " +
-                "where flight.departingDate = ? " +
-                "and flight.departure = ? " +
-                "and flight.destination = ? " );
+        String  queryString = "from FlightEntity flight where flight.departingDate = ? ";
 
-        String planeType = searchRestrictVO.getPlaneType();
-        if (planeType!=null&&planeType.length()>0) {
-            queryString+=("and flight.planeType like '%"+planeType+"%' ");
+
+        String[] planeCompany = Toolkit.emptyArray;
+        if (StringTool.validString(searchRestrictVO.getPlaneType())) {
+            planeCompany = searchRestrictVO.getPlaneType().split(separator);
+            queryString += StringTool.appendSQL(planeCompany.length, " flight.flightNum like ");
+        }
+
+        String[]  departures = Toolkit.emptyArray;
+        if (StringTool.validString(searchRestrictVO.getDeparture())) {
+            departures = searchRestrictVO.getDeparture().split(separator);
+            queryString += StringTool.appendSQL(departures.length, " flight.departure = ");
+        }
+
+        String[]  destinations = Toolkit.emptyArray;
+        if (StringTool.validString(searchRestrictVO.getDestination())) {
+            destinations = searchRestrictVO.getDestination().split(separator);
+            queryString += StringTool.appendSQL(destinations.length, " flight.destination = ");
         }
 
         String flightNum = searchRestrictVO.getFlightNum();
-        if (flightNum!=null && flightNum.length()>0) {
-            queryString+=("and flight.flightNum = ? ");
+        boolean isValidFlightNum = (flightNum!=null && flightNum.length()>0);
+
+        if (isValidFlightNum) {
+            queryString+=(" and flight.flightNum = ? ");
         }
 
+        System.out.println(queryString);
         Query query = getSession().createQuery(queryString);
-        query.setDate(0, searchRestrictVO.getDepartingDate())
-            .setParameter(1, searchRestrictVO.getDeparture())
-            .setParameter(2 ,searchRestrictVO.getDestination());
 
-        if (flightNum!=null && flightNum.length()>0) {
-            query.setParameter((int)3, flightNum);
-        }
+        int i = 0;
+        query.setDate( i++, searchRestrictVO.getDepartingDate() );
+        for (String parameter : planeCompany ) { query.setParameter( i++, parameter+"%" ); }
+        for (String parameter : departures )   { query.setParameter( i++, parameter ); }
+        for (String parameter : destinations ) { query.setParameter( i++, parameter ); }
+        if (isValidFlightNum) { query.setParameter(i, flightNum); }
+
         return query.list();
 
+    }
+
+    public List<FlightEntity> lowestPrice(int top) {
+        return getSession().createQuery("from FlightEntity  order by lowestPrice asc").setMaxResults(top).list();
     }
 
     public List<FlightEntity> uniqueFlight(String planeNumber, Date departureDate) {
