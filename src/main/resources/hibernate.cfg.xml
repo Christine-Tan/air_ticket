@@ -6,7 +6,7 @@
     <session-factory>
 
         <!--<property name="hibernate.current_session_context_class">-->
-            <!--org.springframework.orm.hibernate4.SpringSessionContext-->
+        <!--org.springframework.orm.hibernate4.SpringSessionContext-->
         <!--<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</property>-->
         <!--</property>-->
         <!--* 如果使用的是本地事务（jdbc事务）-->
@@ -30,12 +30,15 @@
         <property name="c3p0.maxIdleTime">25000</property>
         <property name="c3p0.idle_test_period">120</property>
 
+
+
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <!--控制台打印sql-->
         <property name="show_sql">true</property>
         <!--自动更新数据库表结构-->
-        <property name="hbm2ddl.auto"> validate </property>
+        <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+
         <property name="hibernate.connection.url">jdbc:mysql://115.29.138.254:3306/ticket</property>
 
 
@@ -49,6 +52,8 @@
         <mapping class="com.edu.nju.se.integration.model.PriceEntity"/>
         <mapping class="com.edu.nju.se.integration.model.CityEntity"/>
         <mapping class="com.edu.nju.se.integration.model.CompanyEntity"/>
+
+
 
     </session-factory>
 
