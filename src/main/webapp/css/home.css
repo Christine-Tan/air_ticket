@@ -86,14 +86,16 @@ html{
 
 .query-btn{
     position:relative;
-    top:-3px;
+    top:-1px;
     left:-60px;
 }
 
 .search-part{
     margin-left:auto;
     margin-right:auto;
+    top:10px;
 }
+
 
 .search-part .form-control {
     width:300px;

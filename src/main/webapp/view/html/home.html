@@ -77,22 +77,24 @@
 
                             <div class="input-group" style="margin-top:15px;">
                                 <span class="my-font">航空公司：</span>
-                                <div style="display: inline;position: relative;top:-3px;">
-                                    <a class="btn btn-default select-all common-font" href="" onclick="javascript:void(0)">不限</a>
+                                <div style="display: inline;position: relative;top:-2px;">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox1" value="option1"> 东方航空
+                                        <input type="checkbox" name="f-company" id="all" value="all"> 不限
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox2" value="option1"> 南方航空
+                                        <input type="checkbox" name="f-company" id="dongFang" value="MU"> 东方航空
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox3" value="option1"> 中国航空
+                                        <input type="checkbox" name="f-company" id="nanFang" value="CZ"> 南方航空
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox4" value="option1"> 国泰航空
+                                        <input type="checkbox" name="f-company" id="zhongGuo" value="CA"> 中国航空
                                     </label>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox5" value="option1"> 海南航空
+                                        <input type="checkbox"  name="f-company" id="chunqiu" value="9C"> 国泰航空
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="f-company" id="haiNan" value="HU"> 海南航空
                                     </label>
                                 </div>
 
@@ -102,7 +104,7 @@
                     </form>
                     <div class="input-group search-part">
                         <input type="text" class="form-control" placeholder="直接输入航班号查询">
-                        <span class="btn btn-info"><span class="icon-search"></span></span>
+                        <span class="btn btn-info btn-icon"><span class="icon-search"></span></span>
                     </div>
 
                     <hr class="col-lg-12">
@@ -334,6 +336,8 @@
             inputMask: true
         })
     </script>
+
+    <script src="../../js/home.js"></script>
 
 </body>
 </html>

@@ -67,9 +67,50 @@ $(document).ready(
             }
         })
 
+        $("input[id='all']").change(function(){
+            if(this.checked){
+                $.each($("input[name='f-company']"),function(i,check){
+                    check.attr("disabled","disabled");
+                })
+            }else{
+                $.each($("input[name='f-company']"),function(i,check){
+                    check.removeAttr("disabled");
+                })
+            }
+        })
+
         var query = $("#query");
         query.click(function(){
-            var departDate = $("#departDate");
+
+            var departCity = $("#departCity").find("option:selected").text();
+            var arrivingCity = $("#arrivingCity").find("option:selected").text();
+            var departDate = $("#departDate").val();
+            var company = "all";
+
+            if($("#all").is(":checked")){
+
+            }else{
+                company="";
+               $("input[name='f-company']").each(function(){
+                   company += (this.value+",");
+               })
+            }
+
+            console.log("company is: "+company);
+
+            $.get({
+                url:"/home/list",
+                data:{
+                    departCity:departCity,
+                    arrivingCity:arrivingCity,
+                    departDate:departDate,
+                    company:company,
+                },
+                success:function(newList){
+                    PlaneList.updateData(newList);
+                }
+            })
+
         })
     }
 )
