@@ -2,6 +2,7 @@ package com.edu.nju.se.integration.service;
 
 import com.edu.nju.se.integration.dao.FlightDao;
 import com.edu.nju.se.integration.logic.CityConverter;
+import com.edu.nju.se.integration.logic.CompanyConvertor;
 import com.edu.nju.se.integration.logic.PlatformConvert;
 import com.edu.nju.se.integration.model.FlightEntity;
 import com.edu.nju.se.integration.model.PriceEntity;
@@ -30,33 +31,58 @@ public class SearchImpl implements SearchService {
     @Autowired
     private PlatformConvert  platformConvert;
 
+    @Autowired
+    private CompanyConvertor companyConvertor;
+
     public List<PlaneVO> lowestPrice() {
-        return convertToPlane(flightDao.lowestPrice(15));
+        try {
+            return convertToPlane(flightDao.lowestPrice(15));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     public List<PlaneVO> search(SearchRestrictVO restrict) {
         try {
             validParameters(restrict);
-            return convertToPlane(flightDao.searchFlights(restrict));
+            List<PlaneVO> planeVOS = convertToPlane(flightDao.searchFlights(restrict));
+            companyConvertor.convertCode(planeVOS);
+            return planeVOS;
         }catch (Exception e) {
+            e.printStackTrace();
             return Collections.emptyList();
         }
 
     }
 
     public List<PlaneVO> search(String flight, Date departure) {
-        return convertToPlane(flightDao.uniqueFlight(flight, departure));
+        try {
+            List<PlaneVO> planeVOS = convertToPlane(flightDao.uniqueFlight(flight, departure));
+            return planeVOS;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     public PlaneVO getPrices(String flightNumber, Date date) {
-        return convertToPrice(flightDao.uniqueFlight(flightNumber, date));
+        try {
+            PlaneVO planeVO = convertToPrice(flightDao.uniqueFlight(flightNumber, date));
+            return planeVO;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public PlaneVO gerPrices(SearchRestrictVO restrictVO) {
         try {
             validParameters(restrictVO);
-            return convertToPrice(flightDao.searchFlights(restrictVO));
+            PlaneVO planeVO = convertToPrice(flightDao.searchFlights(restrictVO));
+            return planeVO;
         }catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -66,7 +92,7 @@ public class SearchImpl implements SearchService {
         restrict.setDeparture(cityConverter.convertCityToCode(restrict.getDeparture()));
     }
 
-    private PlaneVO convertToPrice(List<FlightEntity> flights) {
+    private PlaneVO convertToPrice(List<FlightEntity> flights) throws Exception{
 
         if (flights==null||flights.size()==0) {
             return null;
@@ -87,10 +113,13 @@ public class SearchImpl implements SearchService {
             }
         }
 
+        planeVO.setDepartingTimeString(planeVO.getDepartingTime().toString().substring(0,2));
+        companyConvertor.convertCode(planeVO);
+
         return planeVO;
     }
 
-    private List<PlaneVO> convertToPlane(List<FlightEntity> flights) {
+    private List<PlaneVO> convertToPlane(List<FlightEntity> flights) throws Exception{
         List<PlaneVO> planeVOS = new ArrayList<PlaneVO>(flights.size());
         Map<String, PlaneVO> ticketVOMap = new HashMap<String, PlaneVO>(flights.size());
 
@@ -99,16 +128,17 @@ public class SearchImpl implements SearchService {
             String key = flight.getFlightNum()+flight.getDepartingDate().getTime()+flight.getDepartingTime().getTime();
 
             PlaneVO planeVO = ticketVOMap.get(key);
+
             if (planeVO ==null) {
                 planeVO = new PlaneVO(flight);
-
                 ticketVOMap.put(key, planeVO);
                 planeVOS.add(planeVO);
             }
 
             planeVO.addPlane(flight, platformConvert);
-
+            planeVO.setDepartingTimeString(planeVO.getDepartingTime().toString().substring(0,2));
         }
+        companyConvertor.convertCode(planeVOS);
         return planeVOS;
     }
 

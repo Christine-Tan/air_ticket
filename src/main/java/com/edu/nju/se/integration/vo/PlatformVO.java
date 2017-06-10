@@ -28,7 +28,7 @@ public class PlatformVO {
     //ctrip
     private String dataSource;
     //携程
-    private String platFormName;
+    private String platformName;
     //最低价格
     private double lowestPrice;
     //航班
