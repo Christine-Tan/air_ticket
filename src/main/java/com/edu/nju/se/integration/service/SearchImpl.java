@@ -125,7 +125,8 @@ public class SearchImpl implements SearchService {
 
         for (FlightEntity flight: flights) {
 
-            String key = flight.getFlightNum()+flight.getDepartingDate().getTime()+flight.getDepartingTime().getTime();
+            String key = flight.getFlightNum()+flight.getDepartingDate().getTime()
+                    +flight.getDepartingTime().toString().substring(0,2);
 
             PlaneVO planeVO = ticketVOMap.get(key);
 
