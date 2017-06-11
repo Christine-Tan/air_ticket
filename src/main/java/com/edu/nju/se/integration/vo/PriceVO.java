@@ -29,7 +29,6 @@ public class PriceVO {
     
     @JsonIgnore
     public PlatformVO getPlatformVO() {
-        System.out.println("get plane from platform");
         return platformVO;
     }
 

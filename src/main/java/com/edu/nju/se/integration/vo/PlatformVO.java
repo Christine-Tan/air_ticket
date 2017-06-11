@@ -38,7 +38,7 @@ public class PlatformVO {
 
     @JsonIgnore
     public PlaneVO getPlaneVO() {
-        System.out.println("get plane from platform");
+
         return planeVO;
     }
 

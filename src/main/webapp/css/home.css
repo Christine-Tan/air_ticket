@@ -133,7 +133,7 @@ html{
 
 .list-item{
     width:100%;
-    height:200px;
+    height:225px;
     box-shadow: 1px 1px 1px 1px #888888;
     margin-bottom: 15px;
 }
@@ -214,6 +214,6 @@ html{
 
 .btn-detail{
     position:relative;
-    bottom:40px;
+    bottom:55px;
 }
 
