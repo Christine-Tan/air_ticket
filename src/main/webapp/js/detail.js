@@ -69,8 +69,8 @@ $(document).ready(
                 departTime:departTime
             },
             success:function(plane){
-                $("#departCity").text(plane.departure);
-                $("#arrivingCity").text(plane.destination);
+                $("#departCity").text(plane.departureCity);
+                $("#arrivingCity").text(plane.destinationCity);
                 $("#departDate").text(plane.departingDate);
                 $("#arrivingDate").text(plane.arrivingDate);
                 $("#detail-company").text(plane.company);
