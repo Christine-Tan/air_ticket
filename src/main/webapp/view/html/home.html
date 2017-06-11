@@ -29,86 +29,6 @@
     </script>
 
     <script src="../../js/home.js"></script>
-    <script>
-
-
-        function planeSort(sortType, isReverse) {
-            var tempList = [];
-            var gridsFather = PlaneList.gridsFather;
-            var originList = $(".list-item");
-
-//            console.log(sortType);
-//            console.log(gridsFather);
-//            console.log(originList);
-
-            for(var i=0; i<originList.length; i++) {
-                console.log(originList.eq(i))
-                tempList.push(originList.eq(i).clone())
-            }
-            console.log("sort==:")
-            tempList.sort(function (a, b) {
-//                console.log(a);
-//                console.log(b);
-//                console.log("\n");
-                var elementA = a.find("."+sortType).eq(0).text().replace(/[^0-9]/g,'');;
-                var elementB = b.find("."+sortType).eq(0).text().replace(/[^0-9]/g,'');;
-
-                var result = (isReverse?-1:1) * (elementA-elementB);
-//                console.log(elementA)
-//                console.log(elementB)
-//                console.log(result)
-                return result;
-            });
-            gridsFather.empty();
-            $.each(tempList, function (i, element) {
-                gridsFather.append(element)
-            })
-        };
-
-        function findCheckedSortType() {
-            var type = undefined;
-            $('.nav>li>a').each(
-                function (i,n){
-                    var jq =  $(n);
-                    if(jq.attr("ischecked")=="true"){
-                        type =  jq;
-                    }
-                }
-            );
-            if(type==undefined){
-                type = $('.nav>li>a');
-            }
-            return type;
-        }
-
-        function onclickFunction(obj) {
-            var originCheck = findCheckedSortType();
-            var originCheckType = originCheck.attr("sortType");
-            var obj = $(obj);
-            var nowCheckType = obj.attr('sortType');
-            var isReverse  = undefined ;
-            if(originCheckType==nowCheckType){
-                if(obj.attr("isReverse")=="true"){
-                    obj.attr("isReverse" , "false");
-                    isReverse = false;
-                    obj.children("span").attr("class", "glyphicon glyphicon-arrow-up");
-                }else{
-                    isReverse = true;
-                    obj.attr("isReverse" , "true");
-                    obj.children("span").attr("class",  "glyphicon glyphicon-arrow-down");
-                };
-            }else{
-                isReverse = true;
-                originCheck.attr("ischecked" ,"false");
-                originCheck.children("span").attr("class",  "glyphicon glyphicon-minus");
-
-                obj.attr("ischecked" , "true");
-                obj.attr("isReverse" , "true");
-                obj.children("span").attr("class",  "glyphicon glyphicon-arrow-down");
-            }
-            planeSort(nowCheckType, isReverse)
-        }
-    </script>
 
 </head>
 <body>
@@ -225,7 +145,7 @@
                             最低价 &nbsp;<span class="glyphicon glyphicon-minus"></span></a></li>
 
                         <li><a href="javascript:void(0)" sorttype="depart-time" ischecked="false" isreverse="false" onclick="onclickFunction(this)" class="active">
-                            出发事件 &nbsp;  <span class="glyphicon glyphicon-minus"></span></a></li>
+                            出发时间 &nbsp;  <span class="glyphicon glyphicon-minus"></span></a></li>
                         <li><a href="javascript:void(0)" sorttype="arriving-time" ischecked="true" isreverse="true" onclick="onclickFunction(this)" class="active">
                             到达时间 &nbsp;  <span class="glyphicon glyphicon-arrow-down"></span></a></li>
                     </ul>
@@ -294,6 +214,105 @@
                 </div>
             </div>
     </div>
+
+<script src="../../plugins/jquery/jquery-3.1.1.min.js"></script>
+<script src="../../plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../plugins/datePicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript">
+    $('.my-date-picker').datetimepicker({
+        format: 'yyyy-MM-dd',
+        language: 'en',
+        pickDate: true,
+        pickTime: false,
+        hourStep: 1,
+        minuteStep: 15,
+        secondStep: 30,
+        inputMask: true
+    })
+</script>
+
+<script src="../../js/home.js"></script>
+
+<script>
+
+
+    function planeSort(sortType, isReverse) {
+        var tempList = [];
+        var gridsFather = PlaneList.gridsFather;
+        var originList = $(".list-item");
+
+//            console.log(sortType);
+//            console.log(gridsFather);
+//            console.log(originList);
+
+        for(var i=0; i<originList.length; i++) {
+            console.log(originList.eq(i))
+            tempList.push(originList.eq(i).clone())
+        }
+        console.log("sort==:")
+        tempList.sort(function (a, b) {
+//                console.log(a);
+//                console.log(b);
+//                console.log("\n");
+            var elementA = a.find("."+sortType).eq(0).text().replace(/[^0-9]/g,'');;
+            var elementB = b.find("."+sortType).eq(0).text().replace(/[^0-9]/g,'');;
+
+            var result = (isReverse?-1:1) * (elementA-elementB);
+//                console.log(elementA)
+//                console.log(elementB)
+//                console.log(result)
+            return result;
+        });
+        gridsFather.empty();
+        $.each(tempList, function (i, element) {
+            gridsFather.append(element)
+        })
+    };
+
+    function findCheckedSortType() {
+        var type = undefined;
+        $('.nav>li>a').each(
+            function (i,n){
+                var jq =  $(n);
+                if(jq.attr("ischecked")=="true"){
+                    type =  jq;
+                }
+            }
+        );
+        if(type==undefined){
+            type = $('.nav>li>a');
+        }
+        return type;
+    }
+
+    function onclickFunction(obj) {
+        var originCheck = findCheckedSortType();
+        var originCheckType = originCheck.attr("sortType");
+        var obj = $(obj);
+        var nowCheckType = obj.attr('sortType');
+        var isReverse  = undefined ;
+        if(originCheckType==nowCheckType){
+            if(obj.attr("isReverse")=="true"){
+                obj.attr("isReverse" , "false");
+                isReverse = false;
+                obj.children("span").attr("class", "glyphicon glyphicon-arrow-up");
+            }else{
+                isReverse = true;
+                obj.attr("isReverse" , "true");
+                obj.children("span").attr("class",  "glyphicon glyphicon-arrow-down");
+            };
+        }else{
+            isReverse = true;
+            originCheck.attr("ischecked" ,"false");
+            originCheck.children("span").attr("class",  "glyphicon glyphicon-minus");
+
+            obj.attr("ischecked" , "true");
+            obj.attr("isReverse" , "true");
+            obj.children("span").attr("class",  "glyphicon glyphicon-arrow-down");
+        }
+        planeSort(nowCheckType, isReverse)
+    }
+</script>
 
 </body>
 </html>
