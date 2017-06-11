@@ -115,6 +115,7 @@ public class SearchImpl implements SearchService {
         }
 
         companyConvertor.convertCode(planeVO);
+        cityConverter.convertCodeToCity(planeVO);
 
         return planeVO;
     }
@@ -141,6 +142,7 @@ public class SearchImpl implements SearchService {
 
         }
         companyConvertor.convertCode(planeVOS);
+        cityConverter.convertCodeToCity(planeVOS);
         return planeVOS;
     }
 

@@ -58,6 +58,10 @@ public class PlaneVO {
 
     private String destination;
 
+    private String departureCity;
+
+    private String destinationCity;
+
     private Date departingDate;
 
     private Time departingTime;
