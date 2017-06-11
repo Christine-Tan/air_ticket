@@ -114,7 +114,6 @@ public class SearchImpl implements SearchService {
             }
         }
 
-        planeVO.setDepartingTimeString(planeVO.getDepartingTime().toString().substring(0,2));
         companyConvertor.convertCode(planeVO);
 
         return planeVO;
@@ -137,7 +136,7 @@ public class SearchImpl implements SearchService {
             }
 
             planeVO.addPlane(flight, platformConvert);
-            planeVO.setDepartingTimeString(planeVO.getDepartingTime().toString().substring(0,2));
+
         }
         companyConvertor.convertCode(planeVOS);
         return planeVOS;

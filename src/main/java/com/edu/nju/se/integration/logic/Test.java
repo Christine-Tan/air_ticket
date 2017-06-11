@@ -68,7 +68,7 @@ public class Test {
         {
 
             System.out.println(planeVO.getFlightNum());
-            System.out.println(planeVO.getDepartingTimeString());
+
             System.out.println(planeVO.getDataSource().size());
             System.out.println(planeVO.getFlightId());
             System.out.println(planeVO.getCompany());

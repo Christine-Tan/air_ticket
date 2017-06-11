@@ -62,11 +62,7 @@ public class PlaneVO {
 
     private Time departingTime;
 
-    private String departingTimeString;
-
     private Time arrivingTime;
-
-    private String arrivingTimeString;
 
     private String departingAirport;
 
