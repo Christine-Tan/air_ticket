@@ -26,10 +26,8 @@ var PlaneList = {
             tempGrid.find(".lowest-price").eq(0).text(plane.lowestPrice);
 
             var gridsFather = tempGrid.find(".price-list").eq(0);
-            PlatformList.init(gridsFather,plane.flightNum,plane.departDate+" "+plane.departTime);
+            PlatformList.init(gridsFather,plane.flightNum,plane.departingDate+" "+plane.departingTime);
             PlatformList.updateData(plane.dataSource);
-
-            tempGrid.find(".btn-detail").eq(0).attr("href",plane.departDate+" "+plane.departTime);
 
             _this.gridsFather.append(tempGrid);
         })
@@ -40,7 +38,11 @@ var PlatformList = {
     init:function(gridsFather,flightNum,time){
         this.gridsFather = gridsFather;
         this.lastGrid =gridsFather.find(".price-item").eq(0);
-        this.detail = gridsFather.find(".btn-detail").eq(0).attr("href","/home/detail?flightNum="+flightNum+"&departTime="+time);
+        // console.log("/home/detail?flightNum="+flightNum+"&departTime="+time);
+        this.detail = gridsFather.find(".btn-detail").eq(0).attr("href",("/view/html/detail.html?flightNum="+"flightNum"+"&departTime="+'time'));
+        // console.log(this.detail.attr("href"));
+
+        this.detail = gridsFather.find(".btn-detail").eq(0);
     },
     updateData:function(platformList){
         this.gridsFather.empty();
@@ -53,6 +55,9 @@ var PlatformList = {
 
             _this.gridsFather.append(tempGrid);
         });
+
+        console.log(_this.detail);
+        console.log(_this.detail.attr("href"));
 
         _this.gridsFather.append(_this.detail);
 
