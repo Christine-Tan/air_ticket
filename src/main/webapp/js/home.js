@@ -39,7 +39,7 @@ var PlatformList = {
         this.gridsFather = gridsFather;
         this.lastGrid =gridsFather.find(".price-item").eq(0);
         // console.log("/home/detail?flightNum="+flightNum+"&departTime="+time);
-        this.detail = gridsFather.find(".btn-detail").eq(0).attr("href",("/view/html/detail.html?flightNum="+"flightNum"+"&departTime="+'time'));
+        this.detail = gridsFather.find(".btn-detail").eq(0).attr("href",("/view/html/detail.html?flightNum="+flightNum+"&departTime="+time));
         // console.log(this.detail.attr("href"));
 
         this.detail = gridsFather.find(".btn-detail").eq(0);

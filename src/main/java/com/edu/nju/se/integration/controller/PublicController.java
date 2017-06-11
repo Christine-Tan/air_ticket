@@ -70,17 +70,16 @@ public class PublicController {
     }
 
     @RequestMapping("/detail")
-    public String getPlaneDetail(@RequestParam String flightNum,
-                                  @RequestParam String departTime,
-                                  HttpSession session){
+    @ResponseBody
+    public PlaneVO getPlaneDetail(@RequestParam String flightNum,
+                                  @RequestParam String departTime){
 
         Date depart = DateTrans.String2Date(departTime,"yyyy-MM-dd HH:mm:ss");
 
         PlaneVO vo = searchService.getPrices(flightNum,depart);
 
-        session.setAttribute("plane",vo);
 
-        return "planeDetail";
+        return vo;
     }
 
     @RequestMapping("/test")

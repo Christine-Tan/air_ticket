@@ -1,0 +1,21 @@
+.my-font span{
+    margin-left:10px;
+}
+
+.list-item{
+    height:1500px;
+}
+
+.detail-price-style{
+    color:rgb(248,176,141);
+    font-weight:600;
+    font-size: 16px;
+}
+
+.detail-note{
+    font-size:16px;
+}
+
+.detail-price-item{
+    margin-top:5px;
+}
