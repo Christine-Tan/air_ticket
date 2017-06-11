@@ -56,10 +56,10 @@ public class CityConverter {
 
     public String convertCodeToCity(String code) throws CityNotFoundException {
 
-        if (cityCode==null) {
+        if (codeCity==null) {
             initMapping();
         }
-        String city = cityCode.get(code);
+        String city = codeCity.get(code);
 
         if (city==null) {
             throw new CityNotFoundException();
