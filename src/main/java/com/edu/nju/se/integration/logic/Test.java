@@ -1,13 +1,11 @@
 package com.edu.nju.se.integration.logic;
 
-import com.edu.nju.se.integration.service.SearchImpl;
-import com.edu.nju.se.integration.service.SearchService;
+import com.edu.nju.se.integration.dataservice.DBSearchImpl;
+import com.edu.nju.se.integration.dataservice.DBSearchService;
 import com.edu.nju.se.integration.tool.DateFormatter;
 import com.edu.nju.se.integration.vo.PlatformVO;
-import com.edu.nju.se.integration.vo.PriceVO;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import com.edu.nju.se.integration.vo.PlaneVO;
-import javafx.application.Platform;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
@@ -19,12 +17,12 @@ import java.util.Date;
 public class Test {
 
 
-    static SearchService service;
+    static DBSearchService service;
     static Date date ;
     public static void main(String[] args) throws Exception{
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         context.start();
-        service = context.getBean(SearchImpl.class);
+        service = context.getBean(DBSearchImpl.class);
 
         date = DateFormatter.dateFormat.parse("2017-07-01");
 

@@ -31,4 +31,18 @@ public class StringTool {
 
         return str_buff.toString();
     }
+
+    public static double toDouble(String string, double defaultValue) {
+        try {
+            return Double.parseDouble(string.replaceAll("[^0-9\\.]",""));
+        }catch (Exception e) {
+            return defaultValue;
+        }
+    }
+
+
+    public static void main(String[] args ){
+        System.out.println(toDouble("80.0%", 1)
+        );
+    }
 }

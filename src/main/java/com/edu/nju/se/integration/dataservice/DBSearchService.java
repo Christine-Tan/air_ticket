@@ -1,8 +1,6 @@
-package com.edu.nju.se.integration.service;
+package com.edu.nju.se.integration.dataservice;
 
-import com.edu.nju.se.integration.vo.PaginationResult;
-import com.edu.nju.se.integration.vo.PlaneVO;
-import com.edu.nju.se.integration.vo.SearchRestrictVO;
+import com.edu.nju.se.integration.vo.*;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.List;
 /**
  * Created by darxan on 2017/6/7.
  */
-public interface SearchService {
+public interface DBSearchService {
 
     /**
      * 推荐的价格最低的机票

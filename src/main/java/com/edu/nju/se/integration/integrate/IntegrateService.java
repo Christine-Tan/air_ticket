@@ -1,4 +1,4 @@
-package com.edu.nju.se.integration.service;
+package com.edu.nju.se.integration.integrate;
 
 import com.edu.nju.se.integration.vo.PaginationResult;
 import com.edu.nju.se.integration.vo.PlaneVO;
@@ -10,13 +10,13 @@ import java.util.List;
 /**
  * Created by darxan on 2017/6/7.
  */
-public interface SearchService {
+public interface IntegrateService {
 
     /**
      * 推荐的价格最低的机票
      * @return
      */
-    List<PlaneVO> lowestPrice();
+    String lowestPrice();
     /**
      * query from data base
      * 一个PlaneVO对应的的是某个时间的航班，会有多个平台来源dataSource。
@@ -27,7 +27,7 @@ public interface SearchService {
      * @return  List<PriceVO>
      * @see  PaginationResult
      */
-    List<PlaneVO> search(SearchRestrictVO restrict);
+    String search(SearchRestrictVO restrict);
 
 
 
@@ -37,7 +37,7 @@ public interface SearchService {
      * @param departure
      * @return
      */
-    List<PlaneVO> search(String flight, Date departure);
+    String search(String flight, Date departure);
 
 
     /**
@@ -47,7 +47,7 @@ public interface SearchService {
      * @param flightNumber
      * @return
      */
-    PlaneVO getPrices(String flightNumber, Date date);
+    String getPrices(String flightNumber, Date date);
 
     /**
      *
@@ -55,7 +55,7 @@ public interface SearchService {
      * @return
      *
      */
-    PlaneVO getPrices(SearchRestrictVO restrictVO);
+    String getPrices(SearchRestrictVO restrictVO);
 
 
 }
