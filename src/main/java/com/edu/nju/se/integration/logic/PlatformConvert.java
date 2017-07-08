@@ -1,7 +1,6 @@
 package com.edu.nju.se.integration.logic;
 
 
-import com.edu.nju.se.integration.tool.MyFunction;
 import com.edu.nju.se.integration.vo.PlatformVO;
 import org.springframework.stereotype.Component;
 

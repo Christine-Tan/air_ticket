@@ -58,7 +58,7 @@
 
     <!--&lt;!&ndash; 那些类的哪些方法参与事务 &ndash;&gt;-->
     <aop:config proxy-target-class="true">
-        <aop:pointcut id="allServiceMethod" expression="execution(* com.edu.nju.se.integration.dataservice..*.*(..))"/>
+        <aop:pointcut id="allServiceMethod" expression="execution(* com.edu.nju.se.integration.service..*.*(..))"/>
         <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice"/>
     </aop:config>
     <!--&lt;!&ndash; 那些类的哪些方法参与事务 &ndash;&gt;-->

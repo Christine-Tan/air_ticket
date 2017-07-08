@@ -1,6 +1,6 @@
 package com.edu.nju.se.integration.dao.base;
 
-import com.edu.nju.se.integration.tool.MyLogger;
+import com.edu.nju.se.integration.util.MyLogger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 

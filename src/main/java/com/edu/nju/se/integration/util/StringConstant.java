@@ -1,4 +1,4 @@
-package com.edu.nju.se.integration.tool;
+package com.edu.nju.se.integration.util;
 
 /**
  * Created by darxan on 2017/2/15.

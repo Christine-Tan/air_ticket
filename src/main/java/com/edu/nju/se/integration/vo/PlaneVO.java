@@ -2,13 +2,11 @@ package com.edu.nju.se.integration.vo;
 
 import com.edu.nju.se.integration.logic.PlatformConvert;
 import com.edu.nju.se.integration.model.FlightEntity;
-import com.edu.nju.se.integration.tool.MyFunction;
 import lombok.Data;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**

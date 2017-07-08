@@ -2,7 +2,7 @@ package com.edu.nju.se.integration.logic;
 
 import com.edu.nju.se.integration.dataservice.DBSearchImpl;
 import com.edu.nju.se.integration.dataservice.DBSearchService;
-import com.edu.nju.se.integration.tool.DateFormatter;
+import com.edu.nju.se.integration.util.DateFormatter;
 import com.edu.nju.se.integration.vo.PlatformVO;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import com.edu.nju.se.integration.vo.PlaneVO;

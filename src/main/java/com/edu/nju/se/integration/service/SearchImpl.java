@@ -23,7 +23,10 @@ public class SearchImpl implements SearchService {
         XStream xStream = new XStream();
         xStream.alias("list", List.class);
         xStream.alias("plane", PlaneVO.class);
-        return (T) xStream.fromXML(string);
+        T a  = (T) xStream.fromXML(string);
+
+        System.out.println(string);
+        return a;
     }
 
     public List<PlaneVO> lowestPrice() {

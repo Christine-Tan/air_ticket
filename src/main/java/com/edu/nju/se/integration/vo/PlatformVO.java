@@ -2,7 +2,6 @@ package com.edu.nju.se.integration.vo;
 
 import com.edu.nju.se.integration.logic.PlatformConvert;
 import com.edu.nju.se.integration.model.FlightEntity;
-import com.edu.nju.se.integration.tool.MyFunction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 

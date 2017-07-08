@@ -2,14 +2,12 @@ package com.edu.nju.se.integration.dao;
 
 import com.edu.nju.se.integration.dao.base.BaseDao;
 import com.edu.nju.se.integration.model.FlightEntity;
-import com.edu.nju.se.integration.tool.StringConstant;
-import com.edu.nju.se.integration.tool.StringTool;
-import com.edu.nju.se.integration.tool.Toolkit;
+import com.edu.nju.se.integration.util.StringTool;
+import com.edu.nju.se.integration.util.Toolkit;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -81,5 +79,22 @@ public class FlightDao extends BaseDao<FlightEntity> {
                 .setParameter(0, planeNumber)
                 .setDate(1, departureDate)
                 .list();
+    }
+
+    public FlightEntity getLowestFlight(String departure, String destination) {
+        return (FlightEntity)getSession()
+                .createQuery("from FlightEntity where departure=? and destination=? order by lowestPrice asc")
+                .setParameter(0, departure)
+                .setParameter(1, destination)
+                .setMaxResults(1)
+                .uniqueResult();
+    }
+
+    public FlightEntity getLowestFlight(String flightNum) {
+        return (FlightEntity)getSession()
+                .createQuery("from FlightEntity where flightNum=? ORDER BY lowestPrice asc ")
+                .setParameter(0, flightNum)
+                .setMaxResults(1)
+                .uniqueResult();
     }
 }

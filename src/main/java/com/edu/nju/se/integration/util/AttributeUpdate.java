@@ -1,4 +1,4 @@
-package com.edu.nju.se.integration.tool;
+package com.edu.nju.se.integration.util;
 
 import java.lang.reflect.Field;
 
