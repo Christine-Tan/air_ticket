@@ -1,6 +1,6 @@
 package com.edu.nju.se.integration.service;
 import com.edu.nju.se.integration.vo.PlaneVO;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 /**
  * Created by darxan on 2017/7/8.

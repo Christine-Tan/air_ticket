@@ -70,7 +70,9 @@ public class DBSearchImpl implements DBSearchService {
     public List<PlaneVO> predict(String depart, String destination) {
         try {
             List<PlaneVO> planeVOS = convertToPlane(
-                    flightDao.getLowestFlightGroupByFlightNum(depart, destination));
+                    flightDao.getLowestFlightGroupByFlightNum(
+                            cityConverter.convertCityToCode(depart),
+                            cityConverter.convertCityToCode(destination)));
             return planeVOS;
         }catch (Exception e) {
             e.printStackTrace();

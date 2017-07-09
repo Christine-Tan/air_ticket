@@ -23,7 +23,42 @@ var PlaneList = {
             tempGrid.find(".depart-city").eq(0).text(plane.departingAirport);
             tempGrid.find(".arriving-city").eq(0).text(plane.arrivingAirport);
             tempGrid.find(".punctual-rate").eq(0).text(plane.punctualRate);
-            tempGrid.find(".lowest-price").eq(0).text(plane.lowestPrice);
+
+            var lowestPrice = tempGrid.find(".lowest-price").eq(0);
+            lowestPrice.prev().text("￥")
+            lowestPrice.next().text("起")
+            lowestPrice.text(plane.lowestPrice)
+
+            var gridsFather = tempGrid.find(".price-list").eq(0);
+            PlatformList.init(gridsFather,plane.flightNum,plane.departingDate+" "+plane.departingTime);
+            PlatformList.updateData(plane.dataSource);
+
+            _this.gridsFather.append(tempGrid);
+        })
+    },
+
+    updatePredict:function(planeList){
+        this.gridsFather.empty();
+        var _this = this;
+        $.each(planeList,function(i,plane){
+            var tempGrid = _this.lastGrid.clone(true);
+            tempGrid.find(".company-name").eq(0).text(plane.company);
+            tempGrid.find(".flight-num").eq(0).text(plane.flightNum);
+            // var depart_time_full = plane.departTime.toString();
+            // var depart_time = depart_time_full.slice(0,-3);
+            tempGrid.find(".depart-time").eq(0).text(plane.departingTime);
+            // var arrive_time_full = plane.arrivingTime.toString();
+            // var arrive_time = arrive_time_full.slice(0,-3);
+            tempGrid.find(".arriving-time").eq(0).text(plane.arrivingTime);
+            tempGrid.find(".depart-city").eq(0).text(plane.departingAirport);
+            tempGrid.find(".arriving-city").eq(0).text(plane.arrivingAirport);
+            tempGrid.find(".punctual-rate").eq(0).text(plane.punctualRate);
+
+            var predictDay = tempGrid.find(".lowest-price").eq(0);
+            predictDay.prev().text("")
+            predictDay.next().text("提前")
+
+            predictDay.text(plane.shouldMoveUpDays+"天");
 
             var gridsFather = tempGrid.find(".price-list").eq(0);
             PlatformList.init(gridsFather,plane.flightNum,plane.departingDate+" "+plane.departingTime);
@@ -124,6 +159,28 @@ $(document).ready(
                 },
                 success:function(newList){
                     PlaneList.updateData(newList);
+                }
+            })
+
+        });
+
+        var predict = $("#predict");
+        predict.click(function(){
+
+            var departCity = $("#departCity").find("option:selected").text();
+            var arrivingCity = $("#arrivingCity").find("option:selected").text();
+            var departDate = $("#departDate").val();
+
+
+            $.get({
+                url:"/home/predict",
+                data:{
+                    departCity:departCity,
+                    arrivingCity:arrivingCity,
+                    departDate:departDate,
+                },
+                success:function(newList){
+                    PlaneList.updatePredict(newList);
                 }
             })
 

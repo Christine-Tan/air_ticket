@@ -1,5 +1,6 @@
 package com.edu.nju.se.integration.controller;
 
+import com.edu.nju.se.integration.service.PredictService;
 import com.edu.nju.se.integration.service.SearchService;
 import com.edu.nju.se.integration.util.DateTrans;
 import com.edu.nju.se.integration.vo.PlaneVO;
@@ -22,7 +23,10 @@ import java.util.List;
 public class PublicController {
 
     @Autowired
-    SearchService searchService;
+    private SearchService searchService;
+
+    @Autowired
+    private PredictService predictService;
 
 //    @InitBinder
 //    public void initBinder(WebDataBinder binder) {
@@ -63,6 +67,23 @@ public class PublicController {
         return searchService.search(flightNum,depart);
     }
 
+    @RequestMapping("/predict")
+    @ResponseBody
+    public List<PlaneVO> getPredict(@RequestParam("departCity") String departCity,
+                                    @RequestParam("arrivingCity") String arrivingCity,
+                                   @RequestParam("departDate") String departDate){
+        Date depart = DateTrans.String2Date(departDate,"yyyy-MM-dd");
+        return predictService.predictBuyDate(depart, departCity, arrivingCity);
+    }
+
+    @RequestMapping("/predict/flightNum")
+    @ResponseBody
+    public List<PlaneVO> getPredict( @RequestParam("departDate") String departDate,
+                                     @RequestParam("flightNum") String flightNum){
+        Date depart = DateTrans.String2Date(departDate,"yyyy-MM-dd");
+        return predictService.predictBuyDate(depart, flightNum);
+    }
+
     @RequestMapping("/detail")
     @ResponseBody
     public PlaneVO getPlaneDetail(@RequestParam String flightNum,
@@ -92,7 +113,6 @@ public class PublicController {
 
         return list;
     }
-
 
 
 }
