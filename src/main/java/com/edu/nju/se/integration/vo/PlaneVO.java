@@ -76,6 +76,11 @@ public class PlaneVO {
 
     private int lowestPrice;
 
+    /**
+     * 应当提前购买的天数
+     */
+    private int shouldMoveUpDays;
+
     private List<PlatformVO> dataSource;
 
 }

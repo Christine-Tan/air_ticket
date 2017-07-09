@@ -19,6 +19,14 @@ public class IntegrateImpl implements IntegrateService {
     @Autowired
     private DBSearchService DBSearchService;
 
+    public String predict(String depart, String destination) {
+        return toXML(DBSearchService.predict(depart, destination));
+    }
+
+    public String predict(String flightNum) {
+        return toXML(DBSearchService.predict(flightNum));
+    }
+
     private String toXML(Object o) {
         XStream xStream = new XStream();
         xStream.alias("list", List.class);

@@ -97,4 +97,23 @@ public class FlightDao extends BaseDao<FlightEntity> {
                 .setMaxResults(1)
                 .uniqueResult();
     }
+
+    public List<FlightEntity> getLowestFlightGroupByFlightNum(String departure, String destination) {
+        String sql = "SELECT a.flight_id, a.flight_num,a.departure,a.destination, " +
+                "  a.departing_date,a.departing_time,a.arriving_time,a.departing_airport,a.arriving_airport, " +
+                "  a.punctual_rate,a.plane_type,min(a.lowest_price) as lowest_price,a.data_source " +
+                "  FROM flight a  " +
+                "  WHERE a.departure=? AND a.destination=?  " +
+                "  GROUP BY a.flight_num;";
+        return getListBySQL(sql, departure, destination);
+    }
+
+    public List<FlightEntity> getLowestFlightByFlightNum(String flightNum) {
+        String sql = "SELECT a.flight_id, a.flight_num,a.departure,a.destination, " +
+                "  a.departing_date,a.departing_time,a.arriving_time,a.departing_airport,a.arriving_airport, " +
+                "  a.punctual_rate,a.plane_type,min(a.lowest_price) as lowest_price,a.data_source " +
+                "FROM flight a " +
+                "WHERE a.flight_num=?";
+        return getListBySQL(sql, flightNum);
+    }
 }

@@ -56,4 +56,8 @@ public interface DBSearchService {
     PlaneVO getPrices(SearchRestrictVO restrictVO);
 
 
+
+    List<PlaneVO> predict(String depart, String destination);
+
+    List<PlaneVO> predict(String flightNum) ;
 }

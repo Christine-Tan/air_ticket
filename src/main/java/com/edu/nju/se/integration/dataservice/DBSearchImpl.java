@@ -67,6 +67,28 @@ public class DBSearchImpl implements DBSearchService {
         }
     }
 
+    public List<PlaneVO> predict(String depart, String destination) {
+        try {
+            List<PlaneVO> planeVOS = convertToPlane(
+                    flightDao.getLowestFlightGroupByFlightNum(depart, destination));
+            return planeVOS;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public List<PlaneVO> predict(String flightNum) {
+        try {
+            List<PlaneVO> planeVOS = convertToPlane(
+                    flightDao.getLowestFlightByFlightNum(flightNum));
+            return planeVOS;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
     public PlaneVO getPrices(String flightNumber, Date date) {
         try {
             PlaneVO planeVO = convertToPrice(flightDao.uniqueFlight(flightNumber, date));

@@ -1,10 +1,14 @@
 package com.edu.nju.se.integration.logic;
 
+import com.edu.nju.se.integration.model.FlightEntity;
 import com.edu.nju.se.integration.service.PredictService;
 import com.edu.nju.se.integration.service.PredictImpl;
+import com.edu.nju.se.integration.vo.PlaneVO;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Date;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by darxan on 2017/7/8.
@@ -18,10 +22,13 @@ public class TestPredict {
         context.start();
         predictService = context.getBean(PredictImpl.class);
 
-        int day = predictService.predictBuyDate(new Date(System.currentTimeMillis()),
-                "HO1191");
+//        List<PlaneVO> day = predictService.predictBuyDate(new Date(System.currentTimeMillis()),
+//                "HO1191");
 
-        System.out.println(day);
+        List<PlaneVO> day = predictService.predictBuyDate(new Date(System.currentTimeMillis()),
+                "BJS", "SHA");
+
+        System.out.println(day.toString());
     }
 
 

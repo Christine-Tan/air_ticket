@@ -1,14 +1,19 @@
 package com.edu.nju.se.integration.service;
 
 import com.edu.nju.se.integration.dao.FlightDao;
+import com.edu.nju.se.integration.integrate.IntegrateService;
 import com.edu.nju.se.integration.model.FlightEntity;
 import com.edu.nju.se.integration.service.PredictService;
+import com.edu.nju.se.integration.util.XstreamUtil;
+import com.edu.nju.se.integration.vo.PlaneVO;
+import com.thoughtworks.xstream.XStream;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 
@@ -19,7 +24,7 @@ import java.util.Random;
 public class PredictImpl implements PredictService {
 
     @Autowired
-    private FlightDao flightDao;
+    private IntegrateService integrateService;
 
     private static final long TRANSFORM = 24*60*60*1000;
 
@@ -29,13 +34,21 @@ public class PredictImpl implements PredictService {
         return 10 + (int) (difference/TRANSFORM) ;
     }
 
-    public int predictBuyDate(Date departDate, String depart, String destination) {
-        FlightEntity flightEntity = flightDao.getLowestFlight(depart, destination);
-        return getDifferenceDate(flightEntity.getDepartingDate());
+
+    private List<PlaneVO> predict(Date departDate, String string) {
+        List<PlaneVO> planeVOS = XstreamUtil.toObject(string);
+        for (PlaneVO planeVO:planeVOS) {
+            planeVO.setShouldMoveUpDays(getDifferenceDate(planeVO.getDepartingDate()));
+        }
+        return planeVOS;
     }
 
-    public int predictBuyDate(Date departDate, String flightNum) {
-        FlightEntity flightEntity = flightDao.getLowestFlight(flightNum);
-        return getDifferenceDate(flightEntity.getDepartingDate());
+
+    public List<PlaneVO> predictBuyDate(Date departDate, String depart, String destination) {
+        return predict(departDate, integrateService.predict(depart, destination));
+    }
+
+    public List<PlaneVO> predictBuyDate(Date departDate, String flightNum) {
+        return predict(departDate, integrateService.predict(flightNum));
     }
 }

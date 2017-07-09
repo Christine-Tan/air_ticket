@@ -58,4 +58,7 @@ public interface IntegrateService {
     String getPrices(SearchRestrictVO restrictVO);
 
 
+    String predict(String depart, String destination);
+
+    String predict(String flightNum) ;
 }

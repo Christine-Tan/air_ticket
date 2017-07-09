@@ -1,6 +1,7 @@
 package com.edu.nju.se.integration.service;
 
 import com.edu.nju.se.integration.integrate.IntegrateService;
+import com.edu.nju.se.integration.util.XstreamUtil;
 import com.edu.nju.se.integration.vo.PlaneVO;
 import com.edu.nju.se.integration.vo.SearchRestrictVO;
 import com.thoughtworks.xstream.XStream;
@@ -20,13 +21,7 @@ public class SearchImpl implements SearchService {
     private IntegrateService integrateService;
 
     private <T> T toObject(String string) {
-        XStream xStream = new XStream();
-        xStream.alias("list", List.class);
-        xStream.alias("plane", PlaneVO.class);
-        T a  = (T) xStream.fromXML(string);
-
-        System.out.println(string);
-        return a;
+        return XstreamUtil.toObject(string);
     }
 
     public List<PlaneVO> lowestPrice() {
